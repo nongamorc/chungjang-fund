@@ -9,6 +9,7 @@
 | 구분 | 링크 |
 |---|---|
 | 프로토타입 (실제 작동) | https://chungjang-fund.vercel.app |
+| 시연 영상 (92초) | https://drive.google.com/file/d/18zGx6nr3vu9xxNIJ5QAG25i-iAvBFLdo/view?usp=sharing |
 | 프로젝트 설명 문서 | [docs/프로젝트_개요.md](docs/프로젝트_개요.md) |
 
 배포 사이트는 로그인 없이 바로 쓸 수 있습니다. 화면의 모든 입력은 가상·샘플 값이며 실제 개인정보는 쓰지 않습니다.
