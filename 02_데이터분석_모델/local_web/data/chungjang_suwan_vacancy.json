@@ -1,0 +1,88 @@
+{
+  "quarter": "2026Q2",
+  "building_type": "집합상가",
+  "unit": "%",
+  "rows": [
+    {
+      "area": "금남로/충장로",
+      "value": 24.5,
+      "series": [
+        {
+          "quarter": "2024Q3",
+          "vacancy": 17.1
+        },
+        {
+          "quarter": "2024Q4",
+          "vacancy": 17.7
+        },
+        {
+          "quarter": "2025Q1",
+          "vacancy": 25.1
+        },
+        {
+          "quarter": "2025Q2",
+          "vacancy": 25.1
+        },
+        {
+          "quarter": "2025Q3",
+          "vacancy": 24.5
+        },
+        {
+          "quarter": "2025Q4",
+          "vacancy": 24.5
+        },
+        {
+          "quarter": "2026Q1",
+          "vacancy": 24.5
+        },
+        {
+          "quarter": "2026Q2",
+          "vacancy": 24.5
+        }
+      ]
+    },
+    {
+      "area": "수완지구",
+      "value": 9.0,
+      "series": [
+        {
+          "quarter": "2024Q3",
+          "vacancy": 7.6
+        },
+        {
+          "quarter": "2024Q4",
+          "vacancy": 8.6
+        },
+        {
+          "quarter": "2025Q1",
+          "vacancy": 8.6
+        },
+        {
+          "quarter": "2025Q2",
+          "vacancy": 8.9
+        },
+        {
+          "quarter": "2025Q3",
+          "vacancy": 9.1
+        },
+        {
+          "quarter": "2025Q4",
+          "vacancy": 9.1
+        },
+        {
+          "quarter": "2026Q1",
+          "vacancy": 8.8
+        },
+        {
+          "quarter": "2026Q2",
+          "vacancy": 9.0
+        }
+      ]
+    }
+  ],
+  "gap_pp": 15.5,
+  "source": "https://www.reb.or.kr/r-one/portal/stat/easyStatPage/T243283134931290.do",
+  "table_id": "T243283134931290",
+  "retrieved": "2026-10-30",
+  "note": "동일 표·분기·상가유형 비교. 기존 AI 목표인 중대형상가와 구분. 학습 자료에는 추가하지 않음."
+}

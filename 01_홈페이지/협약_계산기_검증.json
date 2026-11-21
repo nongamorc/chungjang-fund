@@ -1,0 +1,218 @@
+{
+  "status": "PASS",
+  "edgeCombinations": 54,
+  "checks": [
+    "fund conservation",
+    "owner cash-flow identity",
+    "symmetric retention",
+    "bank cost deducted once",
+    "baseline bank trade removed",
+    "deposits excluded from income",
+    "monthly bank accrual",
+    "break-even boundary",
+    "local links and unique IDs"
+  ],
+  "results": [
+    {
+      "case": "default",
+      "baseline": 8574,
+      "net": 7889,
+      "gain": -686,
+      "bankAfterDiscount": 934
+    },
+    {
+      "case": "discount",
+      "baseline": 8574,
+      "net": 8339,
+      "gain": -236,
+      "bankAfterDiscount": 484
+    },
+    {
+      "case": "zero",
+      "baseline": 3684,
+      "net": 4134,
+      "gain": 450,
+      "bankAfterDiscount": 297
+    },
+    {
+      "case": "noNewBankTrade",
+      "baseline": 8574,
+      "net": 8339,
+      "gain": -236,
+      "bankAfterDiscount": -450
+    }
+  ],
+  "update_20261103": {
+    "changes": [
+      "대환 비율(10%) 입력 제거 → 대출 위치 선택(이 은행 / 다른 은행에서 대환)",
+      "우대는 이 은행 대출에만 적용",
+      "손익분기 목표 입점률을 상단 결과에 표시",
+      "오래 빈 점포·우대 켜기 버튼 추가"
+    ],
+    "results": [
+      {
+        "case": "default",
+        "baseline": 8574,
+        "net": 7889,
+        "gain": -686,
+        "gainWithoutDiscount": -686,
+        "breakEvenEntry": 30.4,
+        "breakEvenEntryNoDiscount": 30.4,
+        "bankLoanAtThisBank": 187,
+        "bankLoanMoved": 7657
+      },
+      {
+        "case": "discount",
+        "baseline": 8574,
+        "net": 8339,
+        "gain": -236,
+        "gainWithoutDiscount": -686,
+        "breakEvenEntry": 26.8,
+        "breakEvenEntryNoDiscount": 30.4,
+        "bankLoanAtThisBank": -263,
+        "bankLoanMoved": 7207
+      },
+      {
+        "case": "discountMove",
+        "baseline": 8574,
+        "net": 8339,
+        "gain": -236,
+        "gainWithoutDiscount": -686,
+        "breakEvenEntry": 26.8,
+        "breakEvenEntryNoDiscount": 30.4,
+        "bankLoanAtThisBank": -263,
+        "bankLoanMoved": 7207
+      },
+      {
+        "case": "zeroDiscount",
+        "baseline": 3684,
+        "net": 4134,
+        "gain": 450,
+        "gainWithoutDiscount": 0,
+        "breakEvenEntry": null,
+        "breakEvenEntryNoDiscount": null,
+        "bankLoanAtThisBank": -450,
+        "bankLoanMoved": 7020
+      },
+      {
+        "case": "longVacant",
+        "baseline": 5907,
+        "net": 5582,
+        "gain": -324,
+        "gainWithoutDiscount": -324,
+        "breakEvenEntry": 11.9,
+        "breakEvenEntryNoDiscount": 11.9,
+        "bankLoanAtThisBank": 85,
+        "bankLoanMoved": 7555
+      },
+      {
+        "case": "longVacantDiscount",
+        "baseline": 5907,
+        "net": 6032,
+        "gain": 126,
+        "gainWithoutDiscount": -324,
+        "breakEvenEntry": 9.3,
+        "breakEvenEntryNoDiscount": 11.9,
+        "bankLoanAtThisBank": -365,
+        "bankLoanMoved": 7105
+      },
+      {
+        "case": "rate10Discount",
+        "baseline": 8574,
+        "net": 8681,
+        "gain": 107,
+        "gainWithoutDiscount": -343,
+        "breakEvenEntry": 24.3,
+        "breakEvenEntryNoDiscount": 27.5,
+        "bankLoanAtThisBank": -263,
+        "bankLoanMoved": 7207
+      }
+    ]
+  },
+  "update_20261104": {
+    "changes": [
+      "기본 연 입점률 25% → 10% (1년 이상 빈 점포 가정)",
+      "버튼: 빨리 채워지는 점포 · 입점 25%",
+      "입점률 설명에 지도 기준 재입점 약 18%(74곳 중 13곳) 참고값 추가"
+    ],
+    "results": [
+      {
+        "case": "default_entry10",
+        "baseline": 5907,
+        "net": 5582,
+        "gain": -324,
+        "gainWithoutDiscount": -324,
+        "breakEvenEntry": 11.9,
+        "breakEvenEntryNoDiscount": 11.9,
+        "bankLoanAtThisBank": 85,
+        "bankLoanMoved": 7555
+      },
+      {
+        "case": "discount",
+        "baseline": 5907,
+        "net": 6032,
+        "gain": 126,
+        "gainWithoutDiscount": -324,
+        "breakEvenEntry": 9.3,
+        "breakEvenEntryNoDiscount": 11.9,
+        "bankLoanAtThisBank": -365,
+        "bankLoanMoved": 7105
+      },
+      {
+        "case": "rate10",
+        "baseline": 5907,
+        "net": 5744,
+        "gain": -162,
+        "gainWithoutDiscount": -162,
+        "breakEvenEntry": 10.9,
+        "breakEvenEntryNoDiscount": 10.9,
+        "bankLoanAtThisBank": 85,
+        "bankLoanMoved": 7555
+      },
+      {
+        "case": "rate10Discount",
+        "baseline": 5907,
+        "net": 6194,
+        "gain": 288,
+        "gainWithoutDiscount": -162,
+        "breakEvenEntry": 8.5,
+        "breakEvenEntryNoDiscount": 10.9,
+        "bankLoanAtThisBank": -365,
+        "bankLoanMoved": 7105
+      },
+      {
+        "case": "entry25",
+        "baseline": 8574,
+        "net": 7889,
+        "gain": -686,
+        "gainWithoutDiscount": -686,
+        "breakEvenEntry": 30.4,
+        "breakEvenEntryNoDiscount": 30.4,
+        "bankLoanAtThisBank": 187,
+        "bankLoanMoved": 7657
+      },
+      {
+        "case": "entry25Discount",
+        "baseline": 8574,
+        "net": 8339,
+        "gain": -236,
+        "gainWithoutDiscount": -686,
+        "breakEvenEntry": 26.8,
+        "breakEvenEntryNoDiscount": 30.4,
+        "bankLoanAtThisBank": -263,
+        "bankLoanMoved": 7207
+      },
+      {
+        "case": "zeroDiscount",
+        "baseline": 3684,
+        "net": 4134,
+        "gain": 450,
+        "gainWithoutDiscount": 0,
+        "breakEvenEntry": null,
+        "breakEvenEntryNoDiscount": null,
+        "bankLoanAtThisBank": -450,
+        "bankLoanMoved": 7020
+      }
+    ]
+  }
+}

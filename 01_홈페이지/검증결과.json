@@ -1,0 +1,20 @@
+{
+  "source": "충장로_공실펀드_애니메이션_수정.html",
+  "calculator": "청충어람_참여조건_간단계산기.html",
+  "sourceData": "C:/Users/user/Downloads/충장로_공실펀드_수정/충장로_공실펀드/local_web/data",
+  "checks": [
+    "index.html: scripts, IDs, local links and anchors OK",
+    "analysis.html: scripts, IDs, local links and anchors OK",
+    "agreement.html: scripts, IDs, local links and anchors OK",
+    "participation.html: scripts, IDs, local links and anchors OK",
+    "Equal entry assumptions preserve negative contribution burden",
+    "Contribution equals refund plus common fund",
+    "Zero vacant stores produces zero result",
+    "No entry produces zero result",
+    "Two-month term is fully allocated to refund",
+    "Immediate full occupancy example: 480 = 40 + 440",
+    "Less favorable entry assumptions remain negative",
+    "Original embedded map data and animation/map scripts unchanged"
+  ],
+  "calculatorScriptSHA256": "e1064ca3493c28071a77a581f397c253a9b94da3dfafecb31a439de1241f8bca"
+}

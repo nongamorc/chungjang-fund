@@ -1,0 +1,47 @@
+<div class="view" id="v-forecast" hidden><header class="hero page-hero"><div class="eyebrow">06 / 07 · AI 공실 예측</div><h1>과거를 학습하고,<br>다음 공실률을 예측합니다</h1><p class="lede">모델 학습·성능 평가·실측값 예측을 한 화면에서 확인합니다. 기금 효과의 가정 기반 계산과는 별개입니다.</p></header><section>
+  <div class="sec-head">
+    <div class="eyebrow">06 / 07 · AI 모델 학습</div>
+    <h2>학습 → valid 선택 → test 평가 → 실측값 예측</h2>
+    <p class="ink2" id="trainLede"></p>
+    </div>
+  <div class="sim">
+    <div class="controls" id="mlCtl">
+      <div class="grp" style="border:0;padding:0">사전에 고정한 피처</div>
+      <div id="featBoxes" style="display:grid;gap:6px"></div>
+      <div class="grp">학습 설정</div>
+      <div class="ctl"><label for="rounds">부스팅 트리 수 <output id="roundsO"></output></label><input type="range" id="rounds" min="50" max="500" step="50" value="250"></div>
+      <div class="ctl"><label for="lr">부스팅 학습률 <output id="lrO"></output></label><input type="range" id="lr" min="0.01" max="0.2" step="0.01" value="0.04"></div>
+      <div class="ctl"><label for="depth">부스팅 트리 깊이 <output id="depthO"></output></label><input type="range" id="depth" min="1" max="5" step="1" value="3"></div>
+      <p class="note">선형회귀 OLS · 릿지 α=10 · Python scikit-learn 사용. 기존 JS 결과와 달라질 수 있습니다. 두 숲은 각 80개 트리/깊이 6/최소 잎 15/노드당 피처 2. RF는 부트스트랩, Extra Trees는 무작위 분할. 아래 조절값은 부스팅에 적용됩니다.</p><button type="button" class="btn primary" id="trainBtn">train 학습·valid 선택</button><button type="button" class="btn" id="testBtn" disabled>선택 고정 후 test 평가</button>
+      <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
+      <span class="note" id="trainMsg" role="status">아직 학습하지 않았습니다.</span>
+    </div>
+    <div style="display:grid;gap:16px;min-width:0">
+      <div class="panel">
+        <h3>회귀모델 비교 · valid 데이터</h3><p class="note">목표 = 4분기 후 공실률 − 현재 공실률(%p). 최종 공실률 = 현재값 + 예측 변화폭. 선형회귀를 기준으로 5개 모델을 동일하게 평가합니다. 선택 기준은 valid MAE입니다.</p><p class="note">평가 지표는 1년 뒤 공실률의 실제값과 예측값으로 계산한 MAE·RMSE·R²입니다. MAE·RMSE 단위는 %p이며 R²는 단위가 없습니다. 학습은 변화폭으로 하되 평가 전 공실률로 복원합니다. R²가 높다고 급변 예측력이 확보됐다는 뜻은 아닙니다.</p>
+        <div class="tbl"><table id="tTrain"><tbody><tr><td class="muted">학습 버튼을 누르면 선형회귀·릿지·랜덤포레스트·Extra Trees·부스팅을 같은 조건으로 비교합니다.</td></tr></tbody></table></div>
+      </div>
+      <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+        <div class="panel"><h3>test 실제 vs 예측 (%)</h3><div class="tbl"><table id="tTest"></table></div><p id="testResults" class="note">선택 고정 후 test 버튼으로 평가합니다.</p><div class="chart" id="cTrainSc"></div></div>
+        <div class="panel"><h3>valid 피처 중요도 (선택 후 설명용)</h3><div class="bars" id="trainImp"><span class="note">학습 후 표시됩니다.</span></div></div>
+      </div>
+      <div class="panel" id="fcPanel">
+        <h3>실측값 입력 · 4분기 후 예측</h3>
+<label>저장된 상권 실측값 <select id="realArea"></select></label>
+<div class="grid2">
+<label>기준분기 <input id="realQuarter" value="2026Q2" placeholder="2026Q2"></label>
+<label>현재 공실률 (%) <input id="realVac" type="number" min="0" max="100" step="any"></label>
+<label>1년 공실 변화 (%p) <input id="realChange" type="number" min="-100" max="100" step="any"></label>
+<label>1년 임대가격지수 변화 (%) <input id="realRent" type="number" step="any"></label>
+<label>원도심 여부 <select id="realOld"><option value="0">0 · 기타</option><option value="1">1 · 원도심</option></select></label>
+</div><p class="note">공실 변화 = 현재 − 전년 동분기 공실률. 지수 변화 = (현재 지수 / 전년 동분기 지수 − 1) × 100. 금액·증감률과 %p를 혼동하지 마세요.</p>
+<button class="btn primary" type="button" id="predictBtn" disabled>입력값으로 예측 실행</button><p id="inputMsg" class="note"></p>
+        <div class="kpis" id="trainFc"><div class="kpi"><span class="l">2027년 2분기 공실률</span><span class="v">–</span><span class="s">학습 후 표시됩니다.</span></div></div>
+        <div class="callout" aria-live="polite"><b>예측 설명</b><p id="predictionExplanation" class="ink2">예측 실행 후 결과의 의미를 설명합니다.</p></div>
+<p id="predictionCaution" class="note"></p>
+<details><summary>모델별 수치와 비교 기준 확인</summary><div class="tbl"><table id="predictionModels" aria-label="모델별 예측 비교"></table></div><p class="note">선형회귀를 기준으로 동일한 피처·분할에서 5개 회귀모델을 비교합니다. valid 변화폭 MAE로 선택하고 test는 선택 이후 평가에만 사용합니다.</p></details>
+      </div>
+    </div>
+  </div>
+</section><section class="page-sources"><details class="source-toggle" data-source-toggle="true"><summary>출처·계산 기준 보기</summary><div class="source-content"></div><p class="note">학습 데이터 출처: 한국부동산원 R-ONE 상업용부동산 임대동향조사 통계표 29개(중대형·소규모 공실률, 임대료, 수익률, 임대가격지수, 2013년 1분기~2026년 2분기). 표 목록과 원본 링크는 <a href="#analysis">데이터 분석 화면</a>의 하단 출처 토글에 있습니다.</p>
+  </details></section><nav class="page-turn" aria-label="이전 다음 화면"><a href="#simulator"><small>← 이전</small><b>펀드 시뮬레이터</b></a><span class="page-count">06 / 07</span><a href="#national"><small>다음 →</small><b>전국 상권 확장</b></a></nav></div>

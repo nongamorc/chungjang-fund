@@ -1,0 +1,175 @@
+<!-- =============================== 3. 시뮬레이터 =============================== -->
+<div class="view" id="v-simulator" hidden>
+<header class="hero">
+  <div class="eyebrow">05 / 07 · 펀드 시뮬레이터</div>
+  <h1>광주 충장로, 기금의 조건을 계산하다</h1>
+  <p class="lede">전국 패널을 train/valid/test로 나눠 로컬 Python 서버에서 학습하고, 고정한 모델로 실측 입력의 1년 뒤 공실률을 예측합니다. 펀드 효과와 장기 경로는 별도의 가정 기반 시나리오로 비교합니다.</p>
+  </header>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">5-1 · 펀드 시뮬레이터</div>
+    <h2>얼마가 모이고, 공실은 얼마나 줄까</h2>
+    <div class="status"><span class="chip info" id="coefChip">정책 시뮬레이션: 별도 사업 가정 (AI 예측과 자동 연결하지 않음)</span></div>
+  <p id="earlyExitNote" class="note" role="status"></p></div>
+  <div class="sim">
+    <form class="controls" id="ctl" onsubmit="return false">
+      <div class="presets" role="group" aria-label="시나리오">
+        <button type="button" data-p="self" aria-pressed="true">자체 출자만</button>
+        <button type="button" data-p="bold">적극 시나리오</button>
+      </div>
+      <div class="grp">펀드 설계</div>
+      <div class="ctl"><label for="n">출자율 n% <output id="nO"></output></label><input type="range" id="n" min="1" max="50" step="0.5" value="5"></div>
+      <div class="ctl"><label for="part">초기 공실 참여율 (면적 기준) <output id="partO"></output></label><input type="range" id="part" min="1" max="100" step="1" value="50"></div>
+      <div class="ctl"><label for="years">약정 기간 <output id="yearsO"></output></label><input type="range" id="years" min="1" max="20" step="1" value="5"></div>
+      <div class="ctl"><label for="vac0">현재 공실률 <output id="vac0O"></output></label><input type="range" id="vac0" min="0.1" max="90" step="0.1" value="26.5"></div>
+      <div class="ctl"><label for="rent">평균 임대료 (원/㎡·월) <output id="rentO"></output></label><input type="range" id="rent" min="5000" max="100000" step="100" value="21200"></div>
+      <p class="note">기본 매출 추세는 연 0%(현 수준 유지)입니다. 참여율은 시작 시 공실 면적 중 약정 비율입니다. 기존 임대 공간은 제외하고, 입점 후 임대료에서만 출자합니다. 지원 배분·민간 기부금·규모·반응 가정은 아래 상세 설정에서 조정할 수 있습니다.</p><details class="advanced-controls" id="advancedFund"><summary>상세 설정 · 지원 배분과 상권 가정</summary><div class="advanced-fields"><div class="ctl"><label for="target">조기 해제 목표 공실률 <output id="targetO"></output></label><input type="range" id="target" min="0" max="50" step="1" value="15"></div>
+      <label class="note" style="display:flex;gap:8px;align-items:center;color:var(--ink2)"><input type="checkbox" id="slide" checked> 건물주 출자율 인하 (공실 1%p↓ → 출자율 2%↓)</label>
+      <div class="ctl"><label for="donation">확보한 민간 기부금 (연간) <output id="donationO"></output></label><input type="number" id="donation" min="0" max="1000" step="0.1" value="0"></div><p class="note">단위: 억원/년. 기본 0이며 기금 운영기간 중 동일액이 유입된다고 가정합니다. 페이백은 이 재원을 소비자에게 환급하는 지출입니다. 기부 유입을 성과로 예측하지 않습니다.</p><div class="grp">기금 사용처 (실비 5% 제외 비율)</div>
+      <div class="ctl"><label for="apb">소비자 페이백 <output id="apbO"></output></label><input type="range" id="apb" min="0" max="100" step="5" value="35"></div>
+      <div class="ctl"><label for="ast">입점 정착금 <output id="astO"></output></label><input type="range" id="ast" min="0" max="100" step="5" value="30"></div>
+      <div class="ctl"><label for="asv">생존 지원금 <output id="asvO"></output></label><input type="range" id="asv" min="0" max="100" step="5" value="10"></div>
+      <div class="ctl"><label for="afe">축제·이벤트 <output id="afeO"></output></label><input type="range" id="afe" min="0" max="100" step="5" value="20"></div>
+      <div class="ctl"><label for="srate">정착금: 월세의 <output id="srateO"></output></label><input type="range" id="srate" min="0" max="90" step="5" value="30"></div>
+      <div class="ctl"><label for="smon">정착금: 지원 기간 <output id="smonO"></output></label><input type="range" id="smon" min="1" max="12" step="1" value="6"></div>
+      <div class="grp">광주 금남로/충장로 · 상권 데이터</div><div class="ctl"><label for="buildings">참조 건물 수 (범위 가정) <output id="buildingsO"></output></label><input type="number" id="buildings" min="1" max="100000" step="1" value="612"></div>
+      <div class="ctl"><label for="area">동당 평균 임대면적 (가정) <output id="areaO"></output></label><input type="range" id="area" min="50" max="3000" step="25" value="450"></div>
+      <p class="note">평균 임대료 = 1층 30,300원/㎡(부동산원 2026년 2분기) × 층 평균 효용 70%(가정). 면적은 건축물대장으로 바꿔 넣을 값입니다.</p>
+      <div class="grp">반응 계수</div>
+      <div class="ctl"><label for="drift">기금 미시행 시 연 매출 추세 (기본 0%) <output id="driftO"></output></label><input type="range" id="drift" min="-20" max="20" step="0.1" value="0"></div>
+      <div class="ctl"><label for="epsr">실질 임대료 → 입점 탄력성 (가정) <output id="epsrO"></output></label><input type="range" id="epsr" min="0" max="5" step="0.1" value="1.5"></div>
+      <div class="ctl"><label for="lam">페이백 1원당 추가 매출 (가정) <output id="lamO"></output></label><input type="range" id="lam" min="0" max="10" step="0.25" value="2"></div>
+    </div></details></form>
+
+    <div style="display:grid;gap:16px;min-width:0">
+      <div class="kpis">
+        <div class="kpi"><span class="l">1년차 기금</span><span class="v" id="kF1">–</span><span class="s" id="kF1s">–</span></div>
+        <div class="kpi"><span class="l">약정기간 누계</span><span class="v" id="kFc">–</span><span class="s" id="kFcs">–</span></div>
+        <div class="kpi"><span class="l">5년차 공실률</span><span class="v" id="kV5">–</span><span class="s" id="kV5s">–</span></div>
+        <div class="kpi"><span class="l">5년차 채워진 임대 공간</span><span class="v" id="kSt">–</span><span class="s" id="kSts">–</span></div>
+      </div>
+      <div class="panel">
+        <h3>기금 운영 전후, 상권 공실률은 어떻게 달라질까?</h3>
+        <div id="pathSummary" class="path-summary" aria-live="polite"></div>
+        <div class="keys"><span><i style="background:var(--base)"></i>기금 미시행 · 상권 전체</span><span><i style="background:var(--accent)"></i>기금 시행 · 상권 전체</span></div>
+        <div class="chart" id="cPath"></div>
+        <p id="pathAxisNote" class="note"></p>
+        <p class="note">점선은 약정 종료 시점입니다. 종료 후 경로도 함께 표시하며, 감소 폭은 실제 사업 성과가 아닌 현재 가정의 계산 결과입니다.</p>
+        <details class="path-detail"><summary>처음 비어 있던 참여 공간의 변화도 보기</summary><p class="note">이 그래프의 분모는 초기 참여 공실 면적입니다. 시작할 때 모두 비어 있어 100%에서 출발하며, 위의 전체 상권 공실률과 기준이 다릅니다.</p><div class="chart" id="cParticipantPath"></div></details>
+      </div>
+      <div class="panel">
+        <h3>연차별 기금과 사용처 (억원)</h3>
+        <div class="keys"><span><i style="background:var(--u-pb)"></i>페이백</span><span><i style="background:var(--u-st)"></i>정착금</span><span><i style="background:var(--u-sv)"></i>생존 지원금</span><span><i style="background:var(--u-fe)"></i>축제</span><span><i style="background:var(--u-op)"></i>실비</span></div>
+        <div class="chart" id="cFund"></div>
+        <p class="note">정착금 예산이 남는 해에는 같은 해 페이백으로 돌려 해당 연도 소비 지원에 재투자합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">5-2 · 이해관계자별 혜택</div>
+    <h2>건물주, 세입자, 소비자에게 각각 무엇이 돌아가나</h2>
+  </div>
+  <div class="proof" id="stake"></div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>정착금 회수기간 (입점 유지 가정)</h3>
+      <div class="chart" id="cPayback"></div>
+      <p class="note" id="paybackNote"></p>
+    </div>
+    <div class="panel">
+      <h3>참여 공실이 채워질 때의 연간 출자금</h3>
+      <div class="chart" id="cLoop"></div>
+      <p class="note" id="loopNote"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">5-3 · 시뮬레이션 시트</div>
+    <h2>n%별 건물주 손익과 연간 기금</h2>
+    <p class="ink2">다른 가정은 조작판 그대로 두고 출자율만 바꾼 결과입니다. 건물주 손익은 시작 시 전부 비어 있는 임대면적 500㎡ 예시 공간의 월 순현금(임대수입 − 출자 − 이자 − 보유비)입니다. 파란 행이 현재 선택입니다.</p>
+  </div>
+  <div class="panel">
+    <div class="status"><button type="button" class="btn" id="copySheet">표 복사 (엑셀 붙여넣기용)</button><span class="note" id="copyMsg" role="status"></span></div>
+    <div class="tbl"><table id="tSheet"></table></div>
+  </div>
+  <div class="panel">
+    <h3>건물주 선택지 비교 (현재 n%)</h3>
+    <div class="tbl"><table id="tLL">
+      <thead><tr><th>선택</th><th>1년차 월 순현금</th><th>5년 순현금</th><th>A 대비</th><th>LTV</th><th>추가 상환</th><th>판정</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="note" id="llNote"></p><p class="note">LTV 비교는 출자금이 평가액에 영향을 주지 않는다는 조건부 가정입니다. 실제 비용 공제 시 평가액이 낮아질 수 있습니다. 순현금은 임대수입 − 출자 − 이자 − 보유비이며, 모든 영업·수선·거래 비용을 포함한 투자수익이 아닙니다.</p>
+  </div>
+</section>
+
+
+
+<section id="policyComparison"><div class="sec-head"><div class="eyebrow">설계안 비교</div><h2>출자율·참여율을 바꾸면 결과가 어떻게 달라지나</h2><p class="ink2">5년차 상권 공실률과 약정기간 누계 기금(억원)을 비교합니다. 이 표는 출자율·참여율의 차이를 보기 위해 조기 해제를 적용하지 않습니다. 주황 테두리는 현재 출자율·참여율에 가장 가까운 조합입니다.</p></div><div class="panel tbl"><table class="heat" id="tHeat"></table></div><div class="callout"><b>설계 시사점</b><ul class="clean ink2" id="insights"></ul></div></section>
+<section id="growth">
+  <div class="sec-head">
+    <div class="eyebrow">기금 운영 과정 · 시뮬레이션 결과 읽기</div>
+    <h2>기금이 모이면 상권에 무슨 일이 생기나</h2>
+    <p class="ink2">임대료 조정이 더딘 상황에서 임대수입의 일부를 모아 공동 대응하는 방안을 검토합니다. 담보·대출 조건이 원인인지는 개별 확인이 필요합니다. 아래 네 단계의 숫자는 위 조작판의 지금 설정으로 계산됩니다.</p>
+  </div>
+  <ol class="story" id="story"></ol>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>건물주에게는 손해인가?</h3>
+      <div id="ownerPlain" class="plain"></div>
+    </div>
+    <div class="panel">
+      <h3>얼마나 큰 돈인가?</h3>
+      <div class="chart" id="cScale"></div>
+      <p class="note" id="scaleNote"></p>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-top:8px">
+    <h3 style="font-size:20px">이 결과를 얼마나 믿을 수 있나</h3>
+    <p class="ink2">새 가게가 실제로 얼마나 들어올지, 손님이 얼마나 늘지는 아직 정확히 모릅니다. 그래서 이런 값들을 그럴듯한 범위 안에서 바꿔 가며 3,000번 계산했습니다. 결과가 매번 비슷하게 나온다면, 그 범위 안에서는 가정이 틀려도 결론이 크게 바뀌지 않는다는 뜻입니다. 다만 이것은 실측이 아니라 가정 위에서 한 계산이므로, 시범사업 데이터로 확인해야 “증명”이 됩니다.</p>
+  </div>
+  <div class="proof" id="proof"></div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>빈 가게 비율, 3,000번 계산 결과</h3><p class="note">기부금 0인 이전 기본 가정의 저장 결과입니다. 위 조작판의 현재 설정이나 기부금 변경에 따라 다시 계산되지 않습니다.</p>
+      <div class="keys"><span><i style="background:var(--base)"></i>펀드 없음</span><span><i style="background:var(--accent)"></i>펀드 있음</span></div>
+      <div class="chart" id="cMC"></div>
+      <p class="note">선은 가장 가능성이 높은 경로이고, 옅은 띠는 3,000번 중 가운데 80%가 들어간 범위입니다. 띠가 서로 겹치는 것은 계산마다 상권 경기를 다르게 넣었기 때문입니다. 같은 경기 조건끼리 비교하면 3,000번 모두 펀드가 있을 때 빈 가게가 더 적었습니다.</p>
+    </div>
+    <div class="panel">
+      <h3>결과를 가장 크게 바꾸는 것</h3>
+      <div class="bars" id="drivers"></div>
+      <p class="note">맨 위 항목은 아직 데이터로 정확히 잴 수 없습니다. 시범사업을 하면서 가장 먼저 확인해야 할 값입니다.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <b>주의할 점</b>
+    <span class="ink2">기금 혜택(정착금·페이백)을 초기 공실 참여 공간에만 줘야 “안 내고 혜택만 받는” 건물주가 줄어듭니다. 초기 임대료 재원이 없으므로 기부금이나 자연 입점으로 첫 재원을 마련하는 조건을 확인해야 합니다. 약정 종료 뒤 효과의 지속 기간도 별도 검증이 필요합니다.</span>
+  </div>
+</section>
+
+
+
+<section class="page-sources"><details class="source-toggle" data-source-toggle="true"><summary>출처·계산 기준 보기</summary><div class="source-content"></div><div class="tbl"><table>
+      <thead><tr><th>입력값</th><th>기본값</th><th class="wrap">출처</th></tr></thead>
+      <tbody>
+        <tr><td>현재 공실률</td><td class="num">26.5%</td><td class="wrap">한국부동산원 R-ONE 지역별 공실률(2024년3분기~) 중대형 상가, 금남로/충장로 2026년 2분기 (<a href="https://www.reb.or.kr/r-one/portal/stat/easyStatPage/T249633134845544.do" target="_blank" rel="noopener">T249633134845544</a>)</td></tr>
+        <tr><td>1층 임대료</td><td class="num">30,300원/㎡</td><td class="wrap">한국부동산원 R-ONE 지역별 임대료(2024년3분기~) 중대형 상가, 금남로/충장로 2026년 2분기 (<a href="https://www.reb.or.kr/r-one/portal/stat/easyStatPage/T244363134858603.do" target="_blank" rel="noopener">T244363134858603</a>)</td></tr>
+        <tr><td>층 평균 효용</td><td class="num">70%</td><td class="wrap">가정값. 2층 이상은 1층보다 임대료가 낮아 전체 평균이 내려가는 것을 반영. R-ONE 층별효용비율 표로 교체 가능</td></tr>
+        <tr><td>이전 모델 참고값</td><td class="num">2027Q2 27.6% (이전)</td><td class="wrap">이전 2분할 모델의 참고 예측. 현재 평가는 AI 학습 영역의 train/valid/test를 사용</td></tr>
+        <tr><td>참조 건물 수</td><td class="num">612동</td><td class="wrap">충장로·황금동 상가 612곳 중 524곳이 30년 이상. 보도 범위의 수를 금남로/충장로 모델 규모로 차용한 가정이며 통계 경계가 일치하지 않음 (<a href="https://v.daum.net/v/20260204210537993" target="_blank" rel="noopener">2026.2.4 보도</a>)</td></tr>
+        <tr><td>동당 평균 임대면적</td><td class="num">450㎡</td><td class="wrap">가정값. 건축물대장 표제부(광주 동구) 연면적으로 교체할 값</td></tr>
+        <tr><td>비교 사업 규모</td><td class="num">100억 / 5년</td><td class="wrap">충장상권 르네상스 사업 2022~2026 (<a href="https://v.daum.net/v/20260127231634822" target="_blank" rel="noopener">2026.1.27 보도</a>)</td></tr>
+        <tr><td>대출·평가 조건</td><td class="num">LTV 60%, 한도 70%, 금리 4.5%, 환원율 4.5%</td><td class="wrap">가정값. 은행 여신심사역·감정평가사 인터뷰로 검증할 항목</td></tr>
+        <tr><td>반응 계수 (입점·페이백 효과 등)</td><td class="num">조작판 값</td><td class="wrap">가정값. 실데이터로 크기를 식별할 수 없어 3,000회 몬테카를로로 범위를 점검. 시범사업에서 실측할 값</td></tr>
+      </tbody>
+    </table></div>
+  <div class="formula">연간 기금 = <b>전체 면적 × 초기 공실률 × 공실 참여율</b> × <b>참여 공간의 입점 후 임대 중 비율</b> × 평균 임대료 × 12 × <b>출자율</b> × 출자율 인하계수 + 확보한 민간 기부금</div>
+<p>기본 시나리오는 기금 미시행 시 연 매출 추세 0%입니다. 불확실성 분석 3,000회도 매출 추세를 0%로 고정하고 나머지 반응 계수만 바꿉니다. 매출 추세는 외부 경기 요인이며, 실제 계산 매출은 입점·공실 변화와 지원 효과에 따라 달라질 수 있습니다.</p><p>대상은 시작 시점에 비어 있던 공간으로 고정합니다. 나중에 발생한 다른 공실은 자동 편입하지 않습니다. 참여율 100%도 전체 상가가 아닌 초기 공실 전부의 참여입니다. 연초 임대 상태로 해당 연도 출자를 계산하고 입퇴점은 연말에 반영하는 연 단위 근사입니다. 따라서 기부금이 없으면 첫해 기금과 지원은 0원이며, 첫해 자연 입점 공간의 임대료 출자는 다음 해부터 반영합니다. 실제 월별 입점 시점과 부분 연도 수입은 반영하지 않았습니다.</p><p>출자율 1~50%, 참여율 1~100%, 운영기간 1~20년, 조기 해제 목표 0~50%, 현재 공실률 0.1~90%까지 비교할 수 있도록 범위를 확장했습니다. 10년을 넘는 운영은 해당 운영기간까지 계산합니다. 5년차 공실률·건물주 5년 순현금은 비교 기준으로 유지합니다. 넓힌 범위는 가정의 민감도를 살펴보기 위한 것으로 실제 효과의 검증 범위를 넓힌 것은 아닙니다. 기금 배분은 운영 실비 5%를 제외한 나머지를 입력 비중에 맞춰 정규화합니다.</p></details></section><nav class="page-turn" aria-label="이전 다음 화면"><a href="#analysis"><small>← 이전</small><b>데이터 분석</b></a><span class="page-count">05 / 07</span><a href="#forecast"><small>다음 →</small><b>AI 공실 예측</b></a></nav></div>

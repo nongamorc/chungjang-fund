@@ -1,0 +1,13 @@
+{
+  "default": {
+    "fund": 686,
+    "refund": 74,
+    "common": 612,
+    "gain": -686
+  },
+  "bankEnabled": {
+    "saving": 450,
+    "gain": -236
+  },
+  "checks": "no entry, zero benefit term, interest cap, direct entry assumption, fund balance, unique IDs, links: PASS"
+}

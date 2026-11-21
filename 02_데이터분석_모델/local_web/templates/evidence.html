@@ -1,0 +1,76 @@
+<div class="view" id="v-evidence" hidden><header class="hero page-hero"><div class="eyebrow">02 / 07 · 문제 진단</div><h1>공실은 늘었는데,<br>임대료는 왜 그대로일까</h1><p class="lede">충장로의 현황과 전국 비교, 임대료 조정의 제약을 차례로 살펴봅니다.</p></header><section id="interventionEvidence"><div class="sec-head"><div class="eyebrow">프로젝트 목적 · 개입 필요성과 기금 설계</div><h2>공실이 지속되고 조정이 더디다: 공동기금 개입을 검토할 근거</h2></div>
+<div class="grid2"><div class="panel"><h3>현재 상황 · 관측</h3><p>금남로/충장로 공실률은 2013년 15.2%에서 2026Q2 26.5%로 높아졌습니다. 2026Q2 광주 상권 중앙값 12.3%보다 14.2%p, 전국 상권 중앙값 13.0%보다 13.5%p 높습니다. 현장조사 점포 수와 부동산원 면적 기준 통계는 구분합니다.</p></div>
+<div class="panel"><h3>시장 조정의 한계 · 분석</h3><p>공실이 1년간 3%p 이상 오른 관측 중 66.8%에서 임대가격지수가 1% 이상 하락하지 않았습니다. 공실의 지속성 계수도 전체 0.946, 원도심 0.973으로 높습니다. 자연 회복 불가능이나 대출상환 압박의 인과적 입증은 아닙니다.</p></div>
+<div class="panel"><h3>공동기금 · 제안</h3><p>임대수입 일부를 모아 정착금(입점), 페이백(소비), 생존지원(퇴점 예방)에 배분합니다. 개별 건물만으로 해결하기 어려운 상권 공동 대응을 검토하는 대안입니다. 임대료 인하·직접 보조보다 우월하다는 결론은 아직 없습니다.</p></div>
+<div class="panel"><h3>입증 범위 · 결론</h3><p>데이터는 개입 검토 필요성을 뒷받침합니다. AI는 향후 공실의 참고 전망, 시뮬레이션은 기금 조건별 가능성을 보여줍니다. 펀드 성공·담보가치 보전·순증 매출은 시범사업과 금융기관 확인으로 검증해야 합니다.</p></div></div>
+<h3>전국 상권 유형별 개입 제안</h3><p id="typeNote" class="note"></p><div class="tbl"><table id="typeTable"></table></div><p id="typeTarget" class="note"></p>
+<p class="note">기금 사용처 제안은 유형별 실증 효과가 아닙니다. 현재 펀드 계산은 충장로의 규모 가정이며 다른 상권에 적용할 때 참여 면적·임대료·매출·반응 계수를 별도로 확인해야 합니다.</p></section><section>
+  <div class="sec-head">
+    <div class="eyebrow">문제 · 한국부동산원 2026년 2분기</div>
+    <h2>공실은 전국 상위 11%, 임대료는 광주 평균보다 41% 비싸다</h2>
+    <p class="ink2">금남로/충장로 중대형상가 공실률은 2013년 15.2%에서 2026년 26.5%로 올랐습니다. 같은 기간 임대가격지수는 14.6% 내려가는 데 그쳤고, 1층 임대료는 여전히 광주 평균보다 41% 높습니다.</p>
+  </div>
+  <div class="facts" id="mainFacts"></div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>중대형상가 공실률 추이 (%)</h3>
+      <div class="keys"><span><i style="background:var(--accent)"></i>금남로/충장로</span><span><i style="background:var(--u-fe)"></i>광주 상권 중앙값</span><span><i style="background:var(--base)"></i>전국 상권 중앙값</span></div>
+      <div class="chart" id="cTrend"></div>
+      <details><summary>평균으로 비교해도 결론은 같은가?</summary><p class="note">2026Q2 동일 상권 표본의 단순평균은 광주 15.0%, 전국 14.3%입니다. 금남로/충장로 26.5%는 두 평균보다도 높습니다. 중앙값은 대표적인 상권과의 비교 목적에 맞춰 선택했으며, 격차 자체가 기금의 효과를 입증하지는 않습니다.</p></details><p class="note"></p>
+    </div>
+    <div class="panel">
+      <h3>임대가격지수는 공실만큼 내려가지 않았다</h3>
+      <div class="keys"><span><i style="background:var(--cut)"></i>금남로/충장로 임대가격지수</span></div>
+      <div class="chart" id="cRidx"></div>
+      <p class="note" id="ridxNote"></p>
+    </div>
+  </div>
+</section><section>
+  <div class="sec-head">
+    <div class="eyebrow">가설과 실데이터 검증</div>
+    <h2>월세 인하가 대출 부담에 미치는 영향</h2>
+    <p class="ink2">수익환원 방식에서는 임대수익이 줄면 평가액도 낮아질 수 있습니다. 대출 잔액이 같다면 평가액 대비 대출 비율이 올라갑니다. 아래는 이 관계를 이해하기 위한 가정 예시입니다.</p>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="sec-head"><h3>월세를 내리면, 같은 대출의 부담 비율은 커집니다</h3><p>슬라이더를 움직여 월세·평가액·대출 비율이 함께 바뀌는 모습을 확인하세요.</p></div><div class="ctl">
+        <label for="cut">임대료 인하율 <output id="cutO">30%</output></label>
+        <input type="range" id="cut" min="0" max="50" step="1" value="30">
+      </div>
+      <div class="kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
+        <div class="kpi"><span class="l">건물 평가액</span><span class="v" id="hVal">–</span><span class="s" id="hVal0">–</span></div>
+        <div class="kpi"><span class="l">평가액 대비 대출 비율</span><span class="v" id="hLtv">–</span><span class="s">약정 한도 70%</span></div>
+        <div class="kpi"><span class="l">추가 상환 요구</span><span class="v" id="hRep">–</span><span class="s" id="hRepS">–</span></div>
+      </div>
+      <div id="rentBeforeAfter" class="rent-before-after" aria-live="polite"></div><h3 class="chart-title">월세 인하율에 따른 대출 비율 변화</h3><div class="chart-axis-note"><span>세로축: 건물 평가액 대비 대출 비율</span><span>가로축: 월세 인하율</span></div><div class="chart" id="cLtv"></div>
+    <p id="ltvExplanation" class="chart-explanation" aria-live="polite"></p></div>
+    <div class="panel">
+      <h3>예시 건물 가정</h3>
+      <div class="tbl"><table><tbody>
+        <tr><td>임대면적</td><td class="num">500㎡ (약 151평)</td></tr>
+        <tr><td>평균 임대료</td><td class="num" id="hRent">–</td></tr>
+        <tr><td>표준 공실 공제 / 운영경비율</td><td class="num">10% / 20%</td></tr>
+        <tr><td>환원율</td><td class="num">4.5%</td></tr>
+        <tr><td>현재 대출 (LTV 60%)</td><td class="num" id="hLoan">–</td></tr>
+        <tr><td>대출 약정 LTV 한도</td><td class="num">70%</td></tr>
+      </tbody></table></div>
+      <div class="callout">
+        <b>임계 인하율 14.3%</b>
+        <span class="ink2">LTV 60%로 빌린 건물은 임대료를 14.3%만 내려도 한도 70%를 넘습니다. 임계 인하율은 1 − 현재LTV ÷ 한도LTV로, 건물 크기와 무관합니다.</span>
+      </div>
+    </div>
+  </div>
+<div class="callout" id="mainProof"></div>
+  </section><section class="page-sources"><details class="source-toggle" data-source-toggle="true"><summary>출처·계산 기준 보기</summary><div class="source-content"></div><div class="src"><ol>
+    <li><a href="https://www.reb.or.kr/r-one/portal/main/indexPage.do" target="_blank" rel="noopener">한국부동산원 R-ONE, 상업용부동산 임대동향조사</a> · 지역별 공실률·임대료·수익률·임대가격지수 (2013년 1분기~2026년 2분기 원자료)</li>
+    <li><a href="https://www.newsis.com/view/NISX20260729_0003728100" target="_blank" rel="noopener">뉴시스, 2분기 상가 공실률 역대 최고…1층 100곳 중 7곳 비었다 (2026.7.30)</a></li>
+    <li><a href="https://www.jnilbo.com/news/articleView.html?idxno=90000068744" target="_blank" rel="noopener">전남일보, “상가 3곳 중 1곳이 비었다”…광주·전남 ‘텅 빈 상권’의 경고 (2026.9.26)</a></li>
+    <li><a href="https://www.jnilbo.com/news/articleView.html?idxno=90000063519" target="_blank" rel="noopener">전남일보, ‘공실률 30%’ 광주 충장로, 정부 ‘리코어 프로젝트’로 부활할까 (2026.9.8)</a></li>
+    <li><a href="https://www.jnilbo.com/news/articleView.html?idxno=90000063618" target="_blank" rel="noopener">전남일보, 오늘의 포토 · 곳곳에 임대…불 꺼진 충장로 (2026.9.8)</a></li>
+    <li><a href="https://v.daum.net/v/20260204210537993" target="_blank" rel="noopener">공실 해소 발목 잡는 임대료…충장로 임대료 광주 평균 상회 (2026.2.4)</a></li>
+    <li><a href="https://www.twig24.com/news/2026/02/20/20260220025002" target="_blank" rel="noopener">트윅, [지방시대] 텅 비어 가는 지방 건물들, 어찌할까 (2026.2.20)</a></li>
+    <li><a href="https://v.daum.net/v/20260127231634822" target="_blank" rel="noopener">충장상권 살리기 100억 ‘헛돈’…높은 임대료에 막혀 ‘헛심’ (2026.1.27)</a></li>
+    <li><a href="https://www.ddaily.co.kr/page/view/2026071716273685988" target="_blank" rel="noopener">디지털데일리, 임대료 얼마 깎아야 공실보다 이득일까 (2026.7.17)</a></li>
+  </ol></div>
+<div class="eyebrow">출처 (2026년 이후 자료)</div>
+  <p class="note">한국부동산원 R-ONE 원자료에서 광주·전국 모두 상권별 공실률의 중앙값으로 재계산했습니다. 2026Q2 광주 13개·전국 283개 상권, 각각 12.3%·13.0%입니다. 일부 고공실 상권에 덜 좌우되는 대표 상권 수준과 비교합니다. 면적 가중 지역 공실률이 아니며, 비교 집단에 금남로/충장로도 포함합니다. 결측은 제외하고 실제 0은 포함합니다. 분기별 관측 상권 구성이 다르며 2017·2022·2024년 3분기에 표본이 개편됐습니다.</p></details></section><nav class="page-turn" aria-label="이전 다음 화면"><a href="#main"><small>← 이전</small><b>프로젝트 소개</b></a><span class="page-count">02 / 07</span><a href="#policy"><small>다음 →</small><b>정책 설계</b></a></nav></div>
